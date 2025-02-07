@@ -2,40 +2,39 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#first we need to get the data as a csv, excel or json file
-#then look over the columns and understand the data 
-
-#read the csv file 
+# Read the CSV file
 data = pd.read_csv('diabetes.csv', encoding='latin1') 
 
+# Display first few rows
 print(data.head())
 
-#find total records
-totalRecords = data['Age'].count()
+# Find total records
+totalRecords = len(data)
+print("Total Records:", totalRecords)
 
-print(totalRecords)
-
-#find min and max on the columns
+# Get statistics for numerical columns
 print(data.describe())
 
-#find average on the columns
+# Find column-wise average
+average = data.mean() #mean will get the average
+print("Column Averages:\n", average)
 
-average = data.sum() / totalRecords
+# Count patients with diabetes (Outcome = 1)
+diabeteCount = data['Outcome'].sum()
+print("Diabetes Cases:", diabeteCount)
 
-print(average)
-
-#patients with diabetes so where outcome is 1 
-diabeteCount = data[data['Outcome'] == 1].count()
-
-print(diabeteCount)
-
-
+# Calculate percentage of diabetic patients
 diabetePerc = (diabeteCount / totalRecords) * 100
+print("Percentage of Diabetic Patients:", diabetePerc, "%")
 
-print(diabetePerc)
+# Diabetes cases by age group
+diabeteAge = data.groupby('Age')['Outcome'].sum()
+print("Diabetes Cases by Age:\n", diabeteAge)
 
-#diabetes by age group 
-diabeteAge = data.groupby('Age')['Outcome'].count()
+# Calculate average BMI for diabetic vs. non-diabetic patients
+avg_bmi = data.groupby("Outcome")["BMI"].mean()
+print("Average BMI by Diabetes Outcome:\n", avg_bmi)
 
-print(diabeteAge)
-
+# Analyze blood glucose levels for diabetic vs. non-diabetic patients
+glucose_stats = data.groupby("Outcome")["Glucose"].describe()
+print("\nBlood Glucose Statistics by Diabetes Outcome:\n", glucose_stats)
