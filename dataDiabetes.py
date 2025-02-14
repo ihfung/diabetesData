@@ -38,3 +38,12 @@ print("Average BMI by Diabetes Outcome:\n", avg_bmi)
 # Analyze blood glucose levels for diabetic vs. non-diabetic patients
 glucose_stats = data.groupby("Outcome")["Glucose"].describe()
 print("\nBlood Glucose Statistics by Diabetes Outcome:\n", glucose_stats)
+
+#age distribution by diabetes outcome
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x="Age", hue="Outcome", bins=20, kde=True, palette=["blue", "red"], alpha=0.6)
+plt.xlabel("Age")
+plt.ylabel("Count")
+plt.title("Age Distribution by Diabetes Outcome")
+plt.legend(title="Diabetes Outcome", labels=["Non-Diabetic", "Diabetic"])
+plt.show()
