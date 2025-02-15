@@ -47,3 +47,4 @@ plt.ylabel("Count")
 plt.title("Age Distribution by Diabetes Outcome")
 plt.legend(title="Diabetes Outcome", labels=["Non-Diabetic", "Diabetic"])
 plt.show()
+
